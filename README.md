@@ -30,8 +30,8 @@
 
 1. Install [nvm-windows](https://github.com/coreybutler/nvm-windows/releases)
 2. `nvm install 16; nvm use 16;`
-3. npm install
-4. npm build
+3. `npm install`
+4. `npm build`
 
 ---
 
