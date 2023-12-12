@@ -66,6 +66,9 @@
               <option v-for="drive in drives" :value="drive + ':'" :key="drive">{{drive}}:</option>
             </select>
           </div>
+          <div class="form-item">
+            <SwitchLabel label="Mount As A Network Drive" v-model="conn.isMountAsANetworkDrive" />
+          </div>
         </Tab>
         <Tab label="ADVANCED" class="advanced-tab">
           <div class="form-item">
@@ -171,6 +174,7 @@ export default {
         mountPoint: 'auto',
         status: 'disconnected',
         pid: 0,
+        isMountAsANetworkDrive: false,
         advanced: {
           customCmdlOptionsEnabled: false,
           customCmdlOptions: [],

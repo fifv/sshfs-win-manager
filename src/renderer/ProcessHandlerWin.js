@@ -32,9 +32,21 @@ class ProcessHandlerWin {
         '-oStrictHostKeyChecking=no',
         '-oUserKnownHostsFile=/dev/null'
       ]
-
+      // console.log('*********** conn:', conn)
       if (!fileExistsSync(this.settings.sshfsBinary)) {
         reject(new Error(`SSHFS binary not found at "${this.settings.sshfsBinary}". Check your settings`)); return
+      }
+      if (conn.isMountAsANetworkDrive) {
+        // If UNC path contains this, it will unable to open : // < >
+        // `-oVolumePrefix=/${conn.user}@${conn.host}${conn.folder === '/' || !conn.folder ? '/#' : conn.folder}`,
+        cmdArgs.push(`-oVolumePrefix=/sshfs-win-manager/${conn.uuid}`)
+        exec(`reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MountPoints2\\##sshfs-win-manager#${conn.uuid} /v _LabelFromReg /d "${conn.name}" /f`, (err, out) => {
+          if (err) {
+            // console.error('******** reg fail:', err)
+            reject(new Error('Fail to modify reg'))
+          }
+          // console.log('******** reg result:', out)
+        })
       }
 
       if (conn.advanced.customCmdlOptionsEnabled) {

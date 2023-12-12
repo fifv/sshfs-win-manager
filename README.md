@@ -9,6 +9,32 @@
 
 # SSHFS-Win Manager
 
+## ✨ This is a fork of `SSHFS-Win Manager 1.3.1`
+
+### New Features
+
+* Add an option to mount as a Network Drive instead of Local Drive
+  * Learned it from [here](https://github.com/winfsp/sshfs-win/issues/125#issuecomment-555150176)
+  * Windows Registry will be modified to correctly display the Network Drive's name (instead of the UNC path). 
+    * Check `HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\MountPoints2\` to see what will be added
+    * Learned it from [here](https://github.com/winfsp/sshfs-win/issues/46)
+
+### Build Notes
+
+* All deps are too old, I had struggled to migrate it but it's of too much work and I gived up :(
+* New versions of node (>=17) will fail as the old `terser` plugin use some deprecated crypto algrithms. **Node 16** works for me, I recommand use [nvm-windows](https://github.com/coreybutler/nvm-windows/releases) to insteall it
+* `node-sass` install failed for me, so I upgrade it to `^7`
+* using `pnpm` with `shamefully-hoist=true` can start dev but failed build, `npm` works
+
+### Build Instructions
+
+1. Install [nvm-windows](https://github.com/coreybutler/nvm-windows/releases)
+2. `nvm install 16; nvm use 16;`
+3. npm install
+4. npm build
+
+---
+
 ## Introduction 
 SSHFS-Win Manager is a GUI (graphics user interface) for SSHFS on Windows (comming soon for other platforms).
 
